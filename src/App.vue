@@ -1,15 +1,24 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark></v-app-bar>
-    <v-main></v-main>
+    <HeaderLayer />
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+    <FooterLayer />
   </v-app>
 </template>
 
 <script>
+import HeaderLayer from "@/pages/layers/HeaderLayer";
+import FooterLayer from "@/pages/layers/FooterLayer";
+
 export default {
   name: "App",
   data() {
     return {};
   },
+  components: {
+    HeaderLayer, FooterLayer,
+  }
 };
 </script>
