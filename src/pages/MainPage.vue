@@ -3,9 +3,6 @@
     <Balance value="990" />
     <br />
     <v-row justify="center">
-      <qrcode-vue :value="address" size="200" />
-    </v-row>
-    <v-row justify="center">
       <v-col cols="12">
         <v-text-field :value="address" readonly>
           <v-icon slot="append" v-clipboard="address" @click="copy">mdi-content-copy</v-icon>
@@ -13,21 +10,27 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-btn color="info" class="ma-2 white--text" @click="receive">Получить</v-btn>
-      <v-bottom-sheet v-model="sheet" persistent>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="success" class="ma-2 white--text" dark v-bind="attrs" v-on="on">Отправить</v-btn>
-        </template>
-        <v-sheet class="text-center">
-          <v-btn class="mt-6" text color="error" @click="sheet = !sheet">Закрыть</v-btn>
-          <div class="py-3">Наведите на QR-код с адресом кошелька</div>
-          <v-row justify="center">
-            <v-col cols="10">
-              <qrcode-stream></qrcode-stream>
-            </v-col>
-          </v-row>
-        </v-sheet>
-      </v-bottom-sheet>
+      <qrcode-vue :value="qrcodeValue" size="200" />
+    </v-row>
+    <v-row justify="center">
+      <Sheet
+        :show="sheet.receive"
+        color="info"
+        btnText="Получить"
+        @open="sheetOpen"
+        @close="sheetClose"
+      >
+        <ReceivePage />
+      </Sheet>
+      <Sheet
+        :show="sheet.send"
+        color="success"
+        btnText="Отправить"
+        @open="sheetOpen"
+        @close="sheetClose"
+      >
+        <SendPage :showQrcodeReader="showQrcodeReader" />
+      </Sheet>
     </v-row>
     <br />
     <v-card outlined>
@@ -64,6 +67,9 @@
 import QrcodeVue from "qrcode.vue";
 import Balance from "@/components/BalanceComponent";
 import Toast from "@/components/ToastComponent";
+import Sheet from "@/components/SheetComponent";
+import SendPage from "@/pages/SendPage";
+import ReceivePage from "@/pages/ReceivePage";
 
 export default {
   name: "MainPage",
@@ -73,7 +79,11 @@ export default {
         show: false,
         text: "",
       },
-      sheet: false,
+      sheet: {
+        send: false,
+        receive: false,
+      },
+      showQrcodeReader: true,
       address: "3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk",
       txlist: [
         {
@@ -95,23 +105,35 @@ export default {
       ],
     };
   },
+  computed: {
+    qrcodeValue() {
+      let value = { address: this.address, amount: null };
+      return JSON.stringify(value);
+    },
+  },
   methods: {
     copy() {
       this.toast.show = true;
       this.toast.text = "Адрес кошелька скопирован";
     },
-    receive() {
-      console.log("Получение монет");
-    },
     toastClose() {
       this.toast.show = false;
       this.toast.text = "";
+    },
+    sheetOpen() {
+      this.showQrcodeReader = true;
+    },
+    sheetClose() {
+      this.showQrcodeReader = false;
     },
   },
   components: {
     QrcodeVue,
     Balance,
     Toast,
+    Sheet,
+    SendPage,
+    ReceivePage,
   },
 };
 </script>
