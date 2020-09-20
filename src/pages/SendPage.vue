@@ -1,10 +1,26 @@
 <template>
-  <div>
+  <v-container>
     <div class="py-3">Наведите на QR-код с адресом кошелька</div>
     <v-row justify="center">
       <v-col cols="10">
         <qrcode-stream v-if="showQrcodeReader" @init="onInit" @decode="onDecode"></qrcode-stream>
       </v-col>
+    </v-row>
+    <v-text-field
+      v-model="amount"
+      label="Сумма"
+      hint="Укажите сколько хотите отправить"
+      persistent-hint
+      suffix="ACRO"
+    />
+    <v-text-field
+      v-model="address"
+      label="Адрес"
+      hint="Укажите адрес кошелька получателя"
+      persistent-hint
+    />
+    <v-row justify="center">
+      <v-btn color="success" class="ma-2 white--text" dark @click="send">Отправить</v-btn>
     </v-row>
     <Toast
       v-if="toast.show"
@@ -13,7 +29,7 @@
       color="error"
       @close="toastClose"
     />
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -27,6 +43,9 @@ export default {
   data() {
     return {
       error: null,
+      value: null,
+      amount: null,
+      address: null,
       toast: {
         show: false,
         text: "",
@@ -64,14 +83,25 @@ export default {
       }
     },
     onDecode(decodedString) {
+      console.log(decodedString);
       if (decodedString != null) {
-        const value = JSON.parse(decodedString);
-        console.log(value);
+        try {
+          this.value = JSON.parse(decodedString);
+          console.log(this.value);
+
+          this.amount = this.value.amount != null ? Math.abs(parseFloat(this.value.amount)) : null;
+          this.address = this.value.address != null ? this.value.address : null;
+        } catch (error) {
+          console.error(error.message);
+        }
       }
     },
     toastClose() {
       this.toast.show = false;
       this.toast.text = "";
+    },
+    send() {
+      console.log("Отправка монет!!!");
     },
   },
   components: {
