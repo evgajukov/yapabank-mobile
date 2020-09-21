@@ -34,7 +34,7 @@
     </v-row>
     <br />
     <v-card outlined>
-      <TXList />
+      <TXList header="Последние 10 операций" />
     </v-card>
     <Toast
       v-if="toast.show"

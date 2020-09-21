@@ -1,6 +1,6 @@
 <template>
   <v-list>
-    <v-subheader>Последние 10 операций</v-subheader>
+    <v-subheader v-if="header != null">{{header}}</v-subheader>
     <v-list-item three-line v-for="tx of txlist" :key="tx.id">
       <v-list-item-icon>
         <v-icon v-text="tx.icon" :color="tx.color"></v-icon>
@@ -24,6 +24,9 @@ import moment from "moment";
 
 export default {
   name: "TXListComponent",
+  props: {
+    header: String,
+  },
   data() {
     return {
       txlist: [
