@@ -1,7 +1,7 @@
 <template>
   <v-list>
     <v-subheader v-if="header != null">{{header}}</v-subheader>
-    <v-list-item three-line v-for="tx of txlist" :key="tx.id">
+    <v-list-item three-line v-for="tx of list" :key="tx.id">
       <v-list-item-icon>
         <v-icon v-text="tx.icon" :color="tx.color"></v-icon>
       </v-list-item-icon>
@@ -29,12 +29,12 @@ export default {
   },
   data() {
     return {
-      txlist: [
+      list: [
         {
           id: 10,
           icon: "mdi-arrow-bottom-right",
           color: "red",
-          address: "3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk",
+          address: "Хасан Карданов",
           amount: "-10",
           dt: "21.09.2020 09:30:32",
         },
