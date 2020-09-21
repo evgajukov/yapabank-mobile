@@ -34,24 +34,7 @@
     </v-row>
     <br />
     <v-card outlined>
-      <v-list>
-        <v-subheader>Последние 20 операций</v-subheader>
-        <v-list-item three-line v-for="tx of txlist" :key="tx.id">
-          <v-list-item-icon>
-            <v-icon v-text="tx.icon" :color="tx.color"></v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>{{tx.address}}</v-list-item-title>
-            <v-list-item-subtitle>{{tx.amount}} ACRO</v-list-item-subtitle>
-            <v-list-item-subtitle>{{tx.dt}}</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-btn icon>
-              <v-icon color="grey lighten-1">mdi-information</v-icon>
-            </v-btn>
-          </v-list-item-action>
-        </v-list-item>
-      </v-list>
+      <TXList />
     </v-card>
     <Toast
       v-if="toast.show"
@@ -68,6 +51,7 @@ import QrcodeVue from "qrcode.vue";
 import Balance from "@/components/BalanceComponent";
 import Toast from "@/components/ToastComponent";
 import Sheet from "@/components/SheetComponent";
+import TXList from "@/components/TXListComponent";
 import SendPage from "@/pages/SendPage";
 import ReceivePage from "@/pages/ReceivePage";
 
@@ -85,24 +69,6 @@ export default {
       },
       showQrcodeReader: true,
       address: "3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk",
-      txlist: [
-        {
-          id: 2,
-          icon: "mdi-arrow-bottom-right",
-          color: "red",
-          address: "3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk",
-          amount: "-10",
-          dt: "сегодня",
-        },
-        {
-          id: 1,
-          icon: "mdi-arrow-top-right",
-          color: "success",
-          address: "3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk",
-          amount: "+1000",
-          dt: "вчера",
-        },
-      ],
     };
   },
   computed: {
@@ -134,6 +100,7 @@ export default {
     Sheet,
     SendPage,
     ReceivePage,
+    TXList,
   },
 };
 </script>

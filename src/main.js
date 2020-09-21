@@ -6,6 +6,10 @@ import router from "./router";
 import Clipboard from "v-clipboard";
 import VueQrcodeReader from "vue-qrcode-reader";
 
+import moment from "moment";
+
+moment.locale("ru");
+
 Vue.config.productionTip = false;
 Vue.use(Clipboard);
 Vue.use(VueQrcodeReader);
