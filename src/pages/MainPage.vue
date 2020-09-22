@@ -78,7 +78,10 @@ export default {
       let value = { address: this.address, amount: null };
       return JSON.stringify(value);
     },
-    ...mapState(["txlist"]),
+    ...mapState(["user", "txlist"]),
+  },
+  created() {
+    if (this.user == null) this.$router.push("/signin");
   },
   methods: {
     copy() {

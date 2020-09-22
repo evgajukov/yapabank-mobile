@@ -13,7 +13,7 @@
       <v-list-item to="/settings">
         <v-list-item-title>Настройки</v-list-item-title>
       </v-list-item>
-      <v-list-item to="/signin">
+      <v-list-item to="/signin" @click="logout">
         <v-list-item-title>Выход</v-list-item-title>
       </v-list-item>
     </v-list>
@@ -21,7 +21,15 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   name: "MenuLayer",
+  methods: {
+    logout() {
+      this.setUser(null);
+    },
+    ...mapMutations(["setUser"]),
+  },
 }
 </script>

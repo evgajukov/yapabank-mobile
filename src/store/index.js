@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     appName: "Acropol",
     symbol: "ACRA",
+    user: { mobile: "+7 925 877-98-19" },
     txlist: [
       {
         id: 10,
