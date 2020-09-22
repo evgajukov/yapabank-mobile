@@ -34,7 +34,7 @@
     </v-row>
     <br />
     <v-card outlined>
-      <TXList header="Последние 10 операций" />
+      <TXList header="Последние 10 операций" :list="txlist" :length="10" />
     </v-card>
     <Toast
       v-if="toast.show"
@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import QrcodeVue from "qrcode.vue";
 import Balance from "@/components/BalanceComponent";
 import Toast from "@/components/ToastComponent";
@@ -76,6 +78,7 @@ export default {
       let value = { address: this.address, amount: null };
       return JSON.stringify(value);
     },
+    ...mapState(["txlist"]),
   },
   methods: {
     copy() {

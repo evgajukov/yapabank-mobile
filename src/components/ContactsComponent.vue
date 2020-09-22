@@ -20,13 +20,7 @@ export default {
   name: "ContactsComponent",
   props: {
     header: String,
-  },
-  data() {
-    return {
-      list: [
-        { id: 1, name: "Хасан Карданов", address: "3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk" },
-      ],
-    };
+    list: Array,
   },
 };
 </script>

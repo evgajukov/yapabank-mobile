@@ -1,13 +1,19 @@
 <template>
   <v-container fluid>
-    <TXList />
+    <TXList :list="txlist" />
   </v-container>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import TXList from "@/components/TXListComponent";
+
 export default {
   name: "HistoryPage",
+  computed: {
+    ...mapState(["txlist"]),
+  },
   components: {
     TXList
   }
