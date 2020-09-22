@@ -11,7 +11,7 @@
       label="Сумма"
       hint="Укажите сколько хотите отправить"
       persistent-hint
-      suffix="ACRO"
+      :suffix="symbol"
     />
     <v-text-field
       v-model="address"
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import Toast from "@/components/ToastComponent";
 
 export default {
@@ -51,6 +53,9 @@ export default {
         text: "",
       },
     };
+  },
+  computed: {
+    ...mapState(["symbol"]),
   },
   methods: {
     async onInit(promise) {

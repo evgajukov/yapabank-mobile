@@ -7,7 +7,7 @@
       </v-list-item-icon>
       <v-list-item-content>
         <v-list-item-title>{{tx.address}}</v-list-item-title>
-        <v-list-item-subtitle>{{tx.amount}} ACRO</v-list-item-subtitle>
+        <v-list-item-subtitle>{{tx.amount}} {{symbol}}</v-list-item-subtitle>
         <v-list-item-subtitle>{{tx.dt | dateFormat}}</v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
@@ -21,6 +21,7 @@
 
 <script>
 import moment from "moment";
+import { mapState } from "vuex";
 
 export default {
   name: "TXListComponent",
@@ -112,6 +113,9 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    ...mapState(["symbol"]),
   },
   filters: {
     dateFormat(value) {

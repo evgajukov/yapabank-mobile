@@ -5,7 +5,7 @@
       label="Сумма"
       hint="Укажите сколько хотите получить"
       persistent-hint
-      suffix="ACRO"
+      :suffix="symbol"
     />
     <v-row justify="center">
       <v-col cols="12">
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import QrcodeVue from "qrcode.vue";
 import Toast from "@/components/ToastComponent";
 
@@ -51,6 +53,7 @@ export default {
       };
       return JSON.stringify(value);
     },
+    ...mapState(["symbol"]),
   },
   methods: {
     copy() {
