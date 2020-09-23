@@ -36,6 +36,7 @@
     <v-card outlined>
       <TXList header="Последние 10 операций" :list="txlist" :length="10" />
     </v-card>
+    <br /><br />
     <Toast
       v-if="toast.show"
       :show="toast.show"
@@ -53,7 +54,7 @@ import QrcodeVue from "qrcode.vue";
 import Balance from "@/components/BalanceComponent";
 import Toast from "@/components/ToastComponent";
 import Sheet from "@/components/SheetComponent";
-import TXList from "@/components/TXListComponent";
+import TXList from "@/components/txlist/TXListComponent";
 import SendPage from "@/pages/SendPage";
 import ReceivePage from "@/pages/ReceivePage";
 

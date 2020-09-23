@@ -7,7 +7,7 @@
 <script>
 import { mapState } from "vuex";
 
-import TXList from "@/components/TXListComponent";
+import TXList from "@/components/txlist/TXListComponent";
 
 export default {
   name: "HistoryPage",

@@ -42,7 +42,6 @@ export default {
         text: "",
       },
       amount: 100,
-      address: "3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk",
     };
   },
   computed: {
@@ -53,7 +52,7 @@ export default {
       };
       return JSON.stringify(value);
     },
-    ...mapState(["symbol"]),
+    ...mapState(["symbol", "address"]),
   },
   methods: {
     copy() {
