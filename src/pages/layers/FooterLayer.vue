@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation v-model="bottomNav" color="primary" :fixed="true">
+  <v-bottom-navigation :value="bottomNav" color="primary" :fixed="true">
     <v-btn value="main" to="/">
       <span>Главная</span>
       <v-icon>mdi-home-outline</v-icon>
@@ -20,7 +20,7 @@ export default {
   name: "FooterLayer",
   data() {
     return {
-      bottomNav: "main",
+      bottomNav: undefined,
     };
   },
 };
