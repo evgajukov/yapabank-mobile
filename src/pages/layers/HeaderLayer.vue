@@ -8,13 +8,6 @@
         transition="scale-transition"
         width="30"
       />
-      <v-img
-        class="shrink mt-1 hidden-sm-and-down"
-        contain
-        min-width="100"
-        :src="require('@/assets/acra_white.png')"
-        width="100"
-      />
     </div>
     <v-toolbar-title>{{appName}}</v-toolbar-title>
     <v-spacer></v-spacer>
