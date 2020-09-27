@@ -4,8 +4,8 @@
     <br />
     <v-row justify="center">
       <v-col cols="12">
-        <v-text-field :value="address" readonly>
-          <v-icon slot="append" v-clipboard="address" @click="copy">mdi-content-copy</v-icon>
+        <v-text-field :value="wallet.address" readonly>
+          <v-icon slot="append" v-clipboard="wallet.address" @click="copy">mdi-content-copy</v-icon>
         </v-text-field>
       </v-col>
     </v-row>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 import QrcodeVue from "qrcode.vue";
 import Balance from "@/components/BalanceComponent";
@@ -71,18 +71,18 @@ export default {
         receive: false,
       },
       showQrcodeReader: true,
-      address: "3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk",
     };
   },
   computed: {
     qrcodeValue() {
-      let value = { address: this.address, amount: null };
+      let value = { address: this.wallet.address, amount: null };
       return JSON.stringify(value);
     },
-    ...mapState(["user", "txlist"]),
+    ...mapState(["wallet", "txlist"]),
+    ...mapGetters(["asset"]),
   },
   created() {
-    if (this.user == null) this.$router.push("/signin");
+    if (this.wallet.address == null) this.$router.push("/signin");
   },
   methods: {
     copy() {

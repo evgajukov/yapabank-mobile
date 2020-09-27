@@ -1,5 +1,5 @@
 export default {
-  setUser(state, user) {
-    state.user = user;
-  },
+  setWallet(state, wallet) {
+    state.wallet = wallet;
+  }
 };

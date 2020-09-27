@@ -8,7 +8,7 @@
       </v-list-item-icon>
       <v-list-item-content>
         <v-list-item-title>{{getContactName(tx.address)}}</v-list-item-title>
-        <v-list-item-subtitle>{{tx.amount}} {{symbol}}</v-list-item-subtitle>
+        <v-list-item-subtitle>{{tx.amount}} {{asset.name}}</v-list-item-subtitle>
         <v-list-item-subtitle>{{tx.dt | dateFormat}}</v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
@@ -51,7 +51,7 @@ export default {
       if (this.length == null) return this.list;
       return this.list.slice(0, this.length);
     },
-    ...mapState(["symbol"]),
+    ...mapState(["asset"]),
     ...mapGetters(["contactName"]),
   },
   filters: {

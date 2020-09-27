@@ -27,9 +27,9 @@ export default {
   name: "MenuLayer",
   methods: {
     logout() {
-      this.setUser(null);
+      this.setWallet({ address: null });
     },
-    ...mapMutations(["setUser"]),
+    ...mapMutations(["setWallet"]),
   },
 }
 </script>

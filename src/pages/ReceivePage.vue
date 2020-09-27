@@ -5,7 +5,7 @@
       label="Сумма"
       hint="Укажите сколько хотите получить"
       persistent-hint
-      :suffix="symbol"
+      :suffix="asset.name"
     />
     <v-row justify="center">
       <v-col cols="12">
@@ -52,7 +52,7 @@ export default {
       };
       return JSON.stringify(value);
     },
-    ...mapState(["symbol", "address"]),
+    ...mapState(["asset", "address"]),
   },
   methods: {
     copy() {

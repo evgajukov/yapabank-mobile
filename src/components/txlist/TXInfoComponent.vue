@@ -8,7 +8,7 @@
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>{{tx.type | typeFormat}}</v-list-item-title>
-          <v-list-item-subtitle>{{tx.amount}} {{symbol}}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{tx.amount}} {{asset.name}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item v-if="getContactName(tx.address) != null" three-line class="blue-grey lighten-4">
@@ -60,7 +60,7 @@ export default {
         return { "error--text": true };
       }
     },
-    ...mapState(["symbol", "contacts"]),
+    ...mapState(["asset", "contacts"]),
     ...mapGetters(["contactName"]),
   },
   methods: {

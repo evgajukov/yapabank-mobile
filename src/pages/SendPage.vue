@@ -11,7 +11,7 @@
       label="Сумма"
       hint="Укажите сколько хотите отправить"
       persistent-hint
-      :suffix="symbol"
+      :suffix="asset.name"
     />
     <v-text-field
       v-model="address"
@@ -55,7 +55,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["symbol"]),
+    ...mapState(["asset"]),
   },
   methods: {
     async onInit(promise) {

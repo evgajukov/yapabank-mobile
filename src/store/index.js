@@ -8,9 +8,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     appName: "Acropol",
-    symbol: "ACRA",
-    user: { mobile: "+7 925 877-98-19", role: "USER" },
-    address: "3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk",
+    asset: {
+      id: "AERXACWDKTKBcvHLZch3UozqogjbcPktrfdoSuDxh3Lu",
+      name: "ACRA",
+    },
+    wallet: {
+      address: null,
+    },
     txlist: [
       {
         id: 10,
