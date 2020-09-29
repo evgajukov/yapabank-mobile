@@ -1,15 +1,14 @@
 <template>
-  <v-container fluid>
-    <v-row justify="center">
-      <v-col cols="12">
-        <v-text-field
-          v-model="mobile"
-          label="Мобильный номер телефона"
-          v-mask="'+7 ### ###-##-##'"
+  <v-container fluid fill-height>
+    <v-row align="center" justify="center" class="text-center">
+      <v-col>
+        <v-img
+          :src="require('@/assets/acra_blue.png')"
+          class="my-3"
+          contain
+          height="300"
         />
-      </v-col>
-      <v-col cols="4">
-        <v-btn color="info" large @click="signin">Войти</v-btn>
+        <br /><v-btn color="info" large @click="signin">Войти</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -20,6 +19,8 @@ import { mapMutations } from "vuex";
 
 import Signer from "@waves/signer";
 import Provider from "@waves.exchange/provider-web";
+
+import client from "../client";
 
 export default {
   name: "AuthPage",
@@ -33,19 +34,24 @@ export default {
       try {
         const signer = new Signer();
         signer.setProvider(new Provider());
+        this.setSigner(signer);
+
         let wallet = await signer.login();
         const assets = await signer.getBalance();
-        console.log(balances);
         this.setWallet({
           ...wallet,
-          assets
+          assets,
         });
+
+        const txlist = await client().get("https://nodes.wavesnodes.com/transactions/address/3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk/limit/100");
+        console.log(txlist);
+
         this.$router.push("/");
       } catch (error) {
         console.error(error.message);
       }
     },
-    ...mapMutations(["setWallet"]),
+    ...mapMutations(["setSigner", "setWallet"]),
   },
 };
 </script>

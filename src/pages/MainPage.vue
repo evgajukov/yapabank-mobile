@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <Balance value="990" />
+    <Balance :value="balance" :symbol="symbol" />
     <br />
     <v-row justify="center">
       <v-col cols="12">
@@ -74,6 +74,16 @@ export default {
     };
   },
   computed: {
+    balance() {
+      const asset = this.asset();
+      if (asset == null) return 0;
+      return asset.amount;
+    },
+    symbol() {
+      const asset = this.asset();
+      if (asset == null) return "UNKNOWN";
+      return asset.assetName;
+    },
     qrcodeValue() {
       let value = { address: this.wallet.address, amount: null };
       return JSON.stringify(value);

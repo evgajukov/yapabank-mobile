@@ -12,6 +12,7 @@ export default new Vuex.Store({
       id: "AERXACWDKTKBcvHLZch3UozqogjbcPktrfdoSuDxh3Lu",
       name: "ACRA",
     },
+    signer: null,
     wallet: {
       address: null,
     },
