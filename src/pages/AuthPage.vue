@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 import Signer from "@waves/signer";
 import Provider from "@waves.exchange/provider-web";
@@ -28,6 +28,9 @@ export default {
     return {
       mobile: null,
     };
+  },
+  computed: {
+    ...mapState(["asset"]),
   },
   methods: {
     async signin() {
@@ -45,14 +48,14 @@ export default {
 
         const result = await client().get("http://localhost:8000/transactions/address/3P6DuEzi1zaCYik3DGXEjtHmKNdiA7YQJWk/limit/100");
         const txlist = (result.data != null && result.data.length == 1 ? result.data[0] : []);
-        console.log(txlist);
+        this.setTxList(txlist.filter(tx => tx.assetId == this.asset.id));
 
         this.$router.push("/");
       } catch (error) {
         console.error(error.message);
       }
     },
-    ...mapMutations(["setSigner", "setWallet"]),
+    ...mapMutations(["setSigner", "setWallet", "setTxList"]),
   },
 };
 </script>

@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <HeaderLayer v-if="user != null" />
+    <HeaderLayer v-if="wallet.address != null" />
     <v-main>
       <router-view></router-view>
     </v-main>
-    <FooterLayer v-if="user != null" />
+    <FooterLayer v-if="wallet.address != null" />
   </v-app>
 </template>
 
@@ -17,7 +17,7 @@ import FooterLayer from "@/pages/layers/FooterLayer";
 export default {
   name: "App",
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["wallet"]),
   },
   components: {
     HeaderLayer, FooterLayer,
