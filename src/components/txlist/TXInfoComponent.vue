@@ -3,8 +3,9 @@
     <v-list>
       <v-list-item two-line>
         <v-list-item-icon>
-          <v-icon v-if="tx.sender == wallet.address" color="red">mdi-arrow-bottom-right</v-icon>
-          <v-icon v-else color="success">mdi-arrow-top-right</v-icon>
+          <v-icon v-if="tx.type == 4 && tx.sender == wallet.address" color="red">mdi-arrow-bottom-right</v-icon>
+          <v-icon v-if="tx.type == 4 && tx.sender != wallet.address" color="success">mdi-arrow-top-right</v-icon>
+          <v-icon v-if="tx.type == 3" color="success">mdi-arrow-expand-right</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>{{tx | typeFormat(wallet)}}</v-list-item-title>
@@ -84,7 +85,9 @@ export default {
       }
     },
     amountFormat(tx, wallet) {
-      return tx.sender == wallet.address ? `-${tx.amount}` : `+${tx.amount}`;
+      if (tx.type == 3) return `+${tx.quantity}`;
+      if (tx.type == 4) return tx.sender == wallet.address ? `-${tx.amount}` : `+${tx.amount}`;
+      return 0;
     },
     typeFormat2(tx, wallet) {
       if (tx.sender == wallet.address) {

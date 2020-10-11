@@ -12,12 +12,12 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
-    { path: "/", name: "Main", component: MainPage },
-    { path: "/history", name: "History", component: HistoryPage },
-    { path: "/contacts", name: "Contacts", component: ContactsPage },
-    { path: "/about", name: "About", component: AboutPage },
-    { path: "/settings", name: "Settings", component: SettingsPage },
-    { path: "/signin", name: "Auth", component: AuthPage },
+    { path: "/", name: "main", component: MainPage },
+    { path: "/history", name: "history", component: HistoryPage },
+    { path: "/contacts", name: "contacts", component: ContactsPage },
+    { path: "/about", name: "about", component: AboutPage },
+    { path: "/settings", name: "settings", component: SettingsPage },
+    { path: "/signin", name: "auth", component: AuthPage },
   ],
   scrollBehavior () {
     return { x: 0, y: 0 }

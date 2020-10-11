@@ -19,6 +19,9 @@ export default {
   computed: {
     ...mapState(["wallet"]),
   },
+  created() {
+    if (this.$route.name != "auth" && this.wallet.address == null) this.$router.push("/signin");
+  },
   components: {
     HeaderLayer, FooterLayer,
   }

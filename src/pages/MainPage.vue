@@ -91,9 +91,6 @@ export default {
     ...mapState(["wallet", "txlist"]),
     ...mapGetters(["asset"]),
   },
-  created() {
-    if (this.wallet.address == null) this.$router.push("/signin");
-  },
   methods: {
     copy() {
       this.toast.show = true;

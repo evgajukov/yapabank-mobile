@@ -3,8 +3,9 @@
     <v-subheader v-if="header != null">{{header}}</v-subheader>
     <v-list-item three-line v-for="tx of getList" :key="tx.id">
       <v-list-item-icon>
-        <v-icon v-if="tx.sender == wallet.address" color="red">mdi-arrow-bottom-right</v-icon>
-        <v-icon v-else color="success">mdi-arrow-top-right</v-icon>
+        <v-icon v-if="tx.type == 4 && tx.sender == wallet.address" color="red">mdi-arrow-bottom-right</v-icon>
+        <v-icon v-if="tx.type == 4 && tx.sender != wallet.address" color="success">mdi-arrow-top-right</v-icon>
+        <v-icon v-if="tx.type == 3" color="success">mdi-arrow-expand-right</v-icon>
       </v-list-item-icon>
       <v-list-item-content>
         <v-list-item-title>{{getContactName(tx)}}</v-list-item-title>
@@ -51,14 +52,20 @@ export default {
   },
   methods: {
     getContactName(tx) {
-      const value = tx.sender == this.wallet.address ? tx.recipient : tx.sender;
+      let value = tx.sender == this.wallet.address ? tx.recipient : tx.sender;
+      if (tx.type == 3) value = tx.sender;
       const name = this.contactName(value);
       return name != null ? name : value;
     },
   },
   filters: {
     amountFormat(tx, wallet) {
-      return tx.sender == wallet.address ? `-${tx.amount}` : `+${tx.amount}`;
+      if (tx.type == 3) return `+${new Intl.NumberFormat().format(tx.quantity)}`;
+      if (tx.type == 4) {
+        const amount = new Intl.NumberFormat().format(tx.amount);
+        return tx.sender == wallet.address ? `-${amount}` : `+${amount}`;
+      }
+      return 0;
     },
     dateFormat(value) {
       return moment(value).fromNow();
