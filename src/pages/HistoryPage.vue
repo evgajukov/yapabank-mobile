@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <TXList :list="txlist" />
+    <br /><br />
   </v-container>
 </template>
 

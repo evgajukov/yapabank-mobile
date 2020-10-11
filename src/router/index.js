@@ -18,5 +18,8 @@ export default new Router({
     { path: "/about", name: "About", component: AboutPage },
     { path: "/settings", name: "Settings", component: SettingsPage },
     { path: "/signin", name: "Auth", component: AuthPage },
-  ]
+  ],
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+  },
 });
