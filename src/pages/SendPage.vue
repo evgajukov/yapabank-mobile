@@ -25,7 +25,7 @@
       hint="Укажите адрес кошелька получателя"
       persistent-hint
     >
-      <v-icon slot="append" @click="showQrcodeReaderByBtn = true">mdi-qrcode-scan</v-icon>
+      <v-icon slot="append" @click="showQrcodeReaderByBtn = !showQrcodeReaderByBtn">mdi-qrcode-scan</v-icon>
     </v-text-field>
     <v-row justify="center">
       <v-btn color="success" class="ma-2 white--text" dark @click="send"
@@ -110,7 +110,9 @@ export default {
               ? Math.abs(parseFloat(this.value.amount))
               : null;
           this.address = this.value.address != null ? this.value.address : null;
-          this.showQrcodeReaderByBtn = this.address != null;
+          this.showQrcodeReaderByBtn = this.address == null;
+          console.log(this.address);
+          console.log(this.showQrcodeReaderByBtn);
         } catch (error) {
           console.error(error.message);
         }
