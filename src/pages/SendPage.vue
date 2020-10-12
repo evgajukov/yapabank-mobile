@@ -1,11 +1,5 @@
 <template>
   <v-container>
-    <div class="py-3">Наведите на QR-код с адресом кошелька</div>
-    <v-row justify="center">
-      <v-col cols="10">
-        <qrcode-stream v-if="showQrcodeReader" @init="onInit" @decode="onDecode"></qrcode-stream>
-      </v-col>
-    </v-row>
     <v-text-field
       v-model="amount"
       label="Сумма"
@@ -13,14 +7,30 @@
       persistent-hint
       :suffix="asset.name"
     />
+    <div v-show="showQrcodeReaderByBtn">
+      <div class="py-3">Наведите на QR-код с адресом кошелька</div>
+      <v-row justify="center">
+        <v-col cols="10">
+          <qrcode-stream
+            v-if="showQrcodeReader && showQrcodeReaderByBtn"
+            @init="onInit"
+            @decode="onDecode"
+          ></qrcode-stream>
+        </v-col>
+      </v-row>
+    </div>
     <v-text-field
       v-model="address"
       label="Адрес"
       hint="Укажите адрес кошелька получателя"
       persistent-hint
-    />
+    >
+      <v-icon slot="append" @click="showQrcodeReaderByBtn = true">mdi-qrcode-scan</v-icon>
+    </v-text-field>
     <v-row justify="center">
-      <v-btn color="success" class="ma-2 white--text" dark @click="send">Отправить</v-btn>
+      <v-btn color="success" class="ma-2 white--text" dark @click="send"
+        >Отправить</v-btn
+      >
     </v-row>
     <Toast
       v-if="toast.show"
@@ -48,6 +58,7 @@ export default {
       value: null,
       amount: null,
       address: null,
+      showQrcodeReaderByBtn: false,
       toast: {
         show: false,
         text: "",
@@ -94,8 +105,12 @@ export default {
           this.value = JSON.parse(decodedString);
           console.log(this.value);
 
-          this.amount = this.value.amount != null ? Math.abs(parseFloat(this.value.amount)) : null;
+          this.amount =
+            this.value.amount != null
+              ? Math.abs(parseFloat(this.value.amount))
+              : null;
           this.address = this.value.address != null ? this.value.address : null;
+          this.showQrcodeReaderByBtn = this.address != null;
         } catch (error) {
           console.error(error.message);
         }
