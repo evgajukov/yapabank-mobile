@@ -40,19 +40,18 @@ export default {
         this.setSigner(signer);
 
         const wallet = await signer.login();
-        wallet.address = "3P2o7ddaTLiw5QSqBevG7Y3RhFSu9xkA9Nf"; // TODO: на время тестирования
+        // wallet.address = "3P2o7ddaTLiw5QSqBevG7Y3RhFSu9xkA9Nf"; // TODO: на время тестирования
         const assets = await signer.getBalance();
         this.setWallet({
           ...wallet,
           assets,
         });
 
-        const gate = "http://localhost:8000";
+        const gate = "https://acrasrv.yapalab.ru"; // TODO: перевести на собственный домен
         const limit = 1000;
         const result = await client().get(`${gate}/transactions/address/${wallet.address}/limit/${limit}`);
         let txlist = (result.data != null && result.data.length == 1 ? result.data[0] : []);
         txlist = txlist.filter(tx => tx.assetId == this.asset.id);
-        console.log(txlist);
         this.setTxList(txlist);
 
         this.$router.push("/");
