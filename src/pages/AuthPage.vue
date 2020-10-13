@@ -26,7 +26,7 @@ export default {
   name: "AuthPage",
   data() {
     return {
-      seed: "border priority access found ethics between length cinnamon blame useful happy bag captain sad side",
+      seed: null,
     };
   },
   created() {

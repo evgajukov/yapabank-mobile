@@ -27,6 +27,7 @@ export default {
   name: "MenuLayer",
   methods: {
     logout() {
+      localStorage.removeItem("seed");
       this.setWallet({ address: null });
     },
     ...mapMutations(["setWallet"]),

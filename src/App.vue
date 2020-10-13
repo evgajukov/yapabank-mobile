@@ -33,9 +33,11 @@ export default {
     console.log("created app");
     this.seed = localStorage.seed;
     if (this.$route.name != "auth" && this.seed == null) {
+      console.log("redirect to auth");
       this.$router.push("/signin");
+    } else {
+      await this.load();
     }
-    await this.load();
   },
   async updated() {
     console.log("updated app");
