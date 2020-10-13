@@ -9,8 +9,8 @@
     />
     <v-row justify="center">
       <v-col cols="12">
-        <v-text-field :value="address" readonly>
-          <v-icon slot="append" v-clipboard="address" @click="copy">mdi-content-copy</v-icon>
+        <v-text-field :value="wallet.address" readonly>
+          <v-icon slot="append" v-clipboard="wallet.address" @click="copy">mdi-content-copy</v-icon>
         </v-text-field>
       </v-col>
     </v-row>
@@ -47,12 +47,12 @@ export default {
   computed: {
     qrcodeValue() {
       let value = {
-        address: this.address,
+        address: this.wallet.address,
         amount: this.amount.length > 0 || this.amount != 0 ? this.amount : null,
       };
       return JSON.stringify(value);
     },
-    ...mapState(["asset", "address"]),
+    ...mapState(["asset", "wallet"]),
   },
   methods: {
     copy() {
