@@ -25,7 +25,11 @@
       hint="Укажите адрес кошелька получателя"
       persistent-hint
     >
-      <v-icon slot="append" @click="showQrcodeReaderByBtn = !showQrcodeReaderByBtn">mdi-qrcode-scan</v-icon>
+      <v-icon
+        slot="append"
+        @click="showQrcodeReaderByBtn = !showQrcodeReaderByBtn"
+        >mdi-qrcode-scan</v-icon
+      >
     </v-text-field>
     <v-row justify="center">
       <v-btn color="success" class="ma-2 white--text" dark @click="send"
@@ -43,6 +47,9 @@
 </template>
 
 <script>
+import Signer from "@waves/signer";
+import { ProviderSeed } from "@waves/provider-seed";
+
 import { mapState } from "vuex";
 
 import Toast from "@/components/ToastComponent";
@@ -122,8 +129,28 @@ export default {
       this.toast.show = false;
       this.toast.text = "";
     },
-    send() {
+    async send() {
+      try {
       console.log("Отправка монет!!!");
+
+      const seed = localStorage.seed;
+      if (seed == null) {
+        console.log("seed is null");
+        return;
+      }
+      
+      const signer = new Signer();
+      signer.setProvider(new ProviderSeed(seed));
+      
+      const [broadcastedTransfer] = await signer
+        .transfer({ amount: this.amount, recipient: this.address, assetId: this.asset.id })
+        .broadcast();
+        console.log(broadcastedTransfer);
+        console.log("Монеты успешно отправлены");
+        // TODO: нужно обновить список транзакций
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
   components: {
