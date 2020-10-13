@@ -8,58 +8,43 @@
           contain
           height="300"
         />
-        <br /><v-btn color="info" large @click="signin">Войти</v-btn>
+        <br />
+        <v-textarea
+          label="Введите SEED"
+          hint="Введите SEED для доступа к своему кошельку"
+          v-model="seed"
+        />
+        <br />
+        <v-btn color="info" large @click="signin">Войти</v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-
-import Signer from "@waves/signer";
-import Provider from "@waves.exchange/provider-web";
-
-import client from "../client";
-
 export default {
   name: "AuthPage",
   data() {
     return {
-      mobile: null,
+      seed: "border priority access found ethics between length cinnamon blame useful happy bag captain sad side",
     };
   },
-  computed: {
-    ...mapState(["asset"]),
+  created() {
+    console.log("created auth");
+    // if (localStorage.seed != null) this.$router.push("/");
+  },
+  updated() {
+    console.log("updated auth");
   },
   methods: {
     async signin() {
       try {
-        const signer = new Signer();
-        signer.setProvider(new Provider());
-        this.setSigner(signer);
-
-        const wallet = await signer.login();
-        // wallet.address = "3P2o7ddaTLiw5QSqBevG7Y3RhFSu9xkA9Nf"; // TODO: на время тестирования
-        const assets = await signer.getBalance();
-        this.setWallet({
-          ...wallet,
-          assets,
-        });
-
-        const gate = "https://acrasrv.yapalab.ru"; // TODO: перевести на собственный домен
-        const limit = 1000;
-        const result = await client().get(`${gate}/transactions/address/${wallet.address}/limit/${limit}`);
-        let txlist = (result.data != null && result.data.length == 1 ? result.data[0] : []);
-        txlist = txlist.filter(tx => tx.assetId == this.asset.id);
-        this.setTxList(txlist);
-
+        localStorage.seed = this.seed;
         this.$router.push("/");
       } catch (error) {
         console.error(error.message);
       }
     },
-    ...mapMutations(["setSigner", "setWallet", "setTxList"]),
   },
 };
 </script>

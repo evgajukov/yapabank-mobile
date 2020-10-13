@@ -9,6 +9,7 @@ import VueQrcodeReader from "vue-qrcode-reader";
 import VueMask from "v-mask";
 
 import moment from "moment";
+import './registerServiceWorker'
 
 moment.locale("ru");
 
