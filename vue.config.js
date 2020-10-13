@@ -12,6 +12,7 @@ module.exports = {
   pwa: {
     name: "ACRA",
     themeColor: "#1A76D2",
+    msTileColor: "#FFFFFF",
   },
 
 }
