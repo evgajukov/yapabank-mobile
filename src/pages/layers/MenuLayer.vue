@@ -10,9 +10,9 @@
         <v-list-item-title>О приложении</v-list-item-title>
       </v-list-item>
       <v-divider></v-divider>
-      <v-list-item to="/settings">
+      <!-- <v-list-item to="/settings">
         <v-list-item-title>Настройки</v-list-item-title>
-      </v-list-item>
+      </v-list-item> -->
       <v-list-item to="/signin" @click="logout">
         <v-list-item-title>Выход</v-list-item-title>
       </v-list-item>
