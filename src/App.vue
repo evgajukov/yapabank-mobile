@@ -61,20 +61,37 @@ export default {
         const assets = await signer.getBalance();
         this.setWallet({ ...wallet, assets });
 
-        console.log("get txlist...");
-        const gate = "https://acrasrv.yapalab.ru";
-        const limit = 1000;
-        const result = await client().get(
-          `${gate}/transactions/address/${wallet.address}/limit/${limit}`
-        );
-        let txlist =
-          result.data != null && result.data.length == 1 ? result.data[0] : [];
-        txlist = txlist.filter((tx) => tx.assetId == this.asset.id);
-        this.setTxList(txlist);
+        try {
+          console.log("get txlist...");
+          const gate = "https://acrasrv.yapalab.ru";
+          const limit = 1000;
+          const result = await client().get(
+            `${gate}/transactions/address/${wallet.address}/limit/${limit}`
+          );
+          let txlist =
+            result.data != null && result.data.length == 1
+              ? result.data[0]
+              : [];
+          txlist = txlist.filter((tx) => tx.assetId == this.asset.id);
+          this.setTxList(txlist);
+        } catch (error) {
+          console.error(error.message);
+        }
+
+        console.log("get contacts...");
+        let data = localStorage[wallet.address];
+        if (data != null) {
+          data = JSON.parse(data);
+          const contacts = data.contacts;
+          if (contacts != null) {
+            this.setContacts(contacts);
+          }
+        }
+
         console.log("finish load");
       }
     },
-    ...mapMutations(["setWallet", "setTxList"]),
+    ...mapMutations(["setWallet", "setTxList", "setContacts"]),
   },
   components: {
     HeaderLayer,

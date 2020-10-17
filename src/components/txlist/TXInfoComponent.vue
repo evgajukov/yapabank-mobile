@@ -24,21 +24,41 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item
-        v-if="getContactName(tx) != null"
+        v-if="addressName != null"
         three-line
         class="blue-grey lighten-4"
       >
         <v-list-item-content>
           <v-list-item-title>{{ tx | typeFormat2(wallet) }}</v-list-item-title>
-          <v-list-item-subtitle>{{ getContactName(tx) }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ addressName }}</v-list-item-subtitle>
           <v-list-item-subtitle>{{ getAddress(tx) }}</v-list-item-subtitle>
         </v-list-item-content>
+        <v-list-item-action>
+          <Sheet
+            :show="sheet.edit"
+            color="grey lighten-1"
+            :onlyIcon="true"
+            btnIcon="mdi-pencil"
+          >
+            <ContactEditPage :address="getAddress(tx)" @save="saveContact" />
+          </Sheet>
+        </v-list-item-action>
       </v-list-item>
       <v-list-item v-else two-line class="blue-grey lighten-4">
         <v-list-item-content>
           <v-list-item-title>{{ tx | typeFormat2(wallet) }}</v-list-item-title>
           <v-list-item-subtitle>{{ getAddress(tx) }}</v-list-item-subtitle>
         </v-list-item-content>
+        <v-list-item-action>
+          <Sheet
+            :show="sheet.edit"
+            color="grey lighten-1"
+            :onlyIcon="true"
+            btnIcon="mdi-pencil"
+          >
+            <ContactEditPage :address="getAddress(tx)" @save="saveContact" />
+          </Sheet>
+        </v-list-item-action>
       </v-list-item>
       <v-list-item two-line>
         <v-list-item-content>
@@ -64,10 +84,21 @@
 import moment from "moment";
 import { mapState, mapGetters } from "vuex";
 
+import Sheet from "@/components/SheetComponent";
+import ContactEditPage from "@/pages/ContactEditPage";
+
 export default {
   name: "TXInfoComponent",
   props: {
     tx: Object,
+  },
+  data() {
+    return {
+      addressName: null,
+      sheet: {
+        edit: false,
+      },
+    };
   },
   computed: {
     statusClass() {
@@ -82,6 +113,9 @@ export default {
     ...mapState(["asset", "contacts", "wallet"]),
     ...mapGetters(["contactName"]),
   },
+  created() {
+    this.addressName = this.getContactName(this.tx);
+  },
   methods: {
     getContactName(tx) {
       const value = this.getAddress(tx);
@@ -90,7 +124,11 @@ export default {
     },
     getAddress(tx) {
       if (tx.type == 3) return tx.sender;
-      if (tx.type == 4) return tx.sender == this.wallet.address ? tx.recipient : tx.sender;
+      if (tx.type == 4)
+        return tx.sender == this.wallet.address ? tx.recipient : tx.sender;
+    },
+    saveContact() {
+      console.log("Save address to contacts");
     },
   },
   filters: {
@@ -138,5 +176,9 @@ export default {
       }
     },
   },
+  components: {
+    Sheet,
+    ContactEditPage,
+  }
 };
 </script>

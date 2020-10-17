@@ -1,19 +1,37 @@
 <template>
   <v-list>
-    <v-subheader v-if="header != null">{{header}}</v-subheader>
+    <v-subheader v-if="header != null">{{ header }}</v-subheader>
     <v-list-item three-line v-for="tx of getList" :key="tx.id">
       <v-list-item-icon>
-        <v-icon v-if="tx.type == 4 && tx.sender == wallet.address" color="red">mdi-arrow-bottom-right</v-icon>
-        <v-icon v-if="tx.type == 4 && tx.sender != wallet.address" color="success">mdi-arrow-top-right</v-icon>
-        <v-icon v-if="tx.type == 3" color="success">mdi-arrow-expand-right</v-icon>
+        <v-icon v-if="tx.type == 4 && tx.sender == wallet.address" color="red"
+          >mdi-arrow-bottom-right</v-icon
+        >
+        <v-icon
+          v-if="tx.type == 4 && tx.sender != wallet.address"
+          color="success"
+          >mdi-arrow-top-right</v-icon
+        >
+        <v-icon v-if="tx.type == 3" color="success"
+          >mdi-arrow-expand-right</v-icon
+        >
       </v-list-item-icon>
       <v-list-item-content>
-        <v-list-item-title>{{getContactName(tx)}}</v-list-item-title>
-        <v-list-item-subtitle>{{tx | amountFormat(wallet)}} {{asset.name}}</v-list-item-subtitle>
-        <v-list-item-subtitle>{{tx.timestamp | dateFormat}}</v-list-item-subtitle>
+        <v-list-item-title>{{ getContactName(tx) }}</v-list-item-title>
+        <v-list-item-subtitle
+          >{{ tx | amountFormat(wallet) }}
+          {{ asset.name }}</v-list-item-subtitle
+        >
+        <v-list-item-subtitle>{{
+          tx.timestamp | dateFormat
+        }}</v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
-        <Sheet :show="sheet.info" color="grey lighten-1" :onlyIcon="true" btnIcon="mdi-information">
+        <Sheet
+          :show="sheet.info"
+          color="grey lighten-1"
+          :onlyIcon="true"
+          btnIcon="mdi-information"
+        >
           <TXInfo :tx="tx" />
         </Sheet>
       </v-list-item-action>
@@ -60,7 +78,8 @@ export default {
   },
   filters: {
     amountFormat(tx, wallet) {
-      if (tx.type == 3) return `+${new Intl.NumberFormat().format(tx.quantity)}`;
+      if (tx.type == 3)
+        return `+${new Intl.NumberFormat().format(tx.quantity)}`;
       if (tx.type == 4) {
         const amount = new Intl.NumberFormat().format(tx.amount);
         return tx.sender == wallet.address ? `-${amount}` : `+${amount}`;
@@ -72,7 +91,8 @@ export default {
     },
   },
   components: {
-    Sheet, TXInfo,
+    Sheet,
+    TXInfo,
   },
 };
 </script>

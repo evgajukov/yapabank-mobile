@@ -16,9 +16,7 @@ export default new Vuex.Store({
       address: null,
     },
     txlist: [],
-    contacts: [
-      { id: 1, name: "Хасан Карданов", address: "3P2o7ddaTLiw5QSqBevG7Y3RhFSu9xkA9Nf" },
-    ],
+    contacts: [],
   },
   getters,
   mutations

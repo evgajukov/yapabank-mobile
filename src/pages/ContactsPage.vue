@@ -7,7 +7,7 @@
 <script>
 import { mapState } from "vuex";
 
-import Contacts from "@/components/ContactsComponent";
+import Contacts from "@/components/contact/ContactsComponent";
 
 export default {
   name: "ContactsPage",

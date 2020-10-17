@@ -37,6 +37,6 @@ export default {
       this.visible = false;
       this.$emit("close");
     },
-  }
+  },
 }
 </script>
