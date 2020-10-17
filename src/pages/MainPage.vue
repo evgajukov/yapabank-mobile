@@ -17,8 +17,8 @@
         :show="sheet.receive"
         color="info"
         btnText="Получить"
-        @open="sheetOpen"
-        @close="sheetClose"
+        @open="sheetOpen(); sheet.receive = true;"
+        @close="sheetClose(); sheet.receive = false"
       >
         <ReceivePage />
       </Sheet>
@@ -26,10 +26,10 @@
         :show="sheet.send"
         color="success"
         btnText="Отправить"
-        @open="sheetOpen"
-        @close="sheetClose"
+        @open="sheetOpen(); sheet.send = true;"
+        @close="sheetClose(); sheet.send = false;"
       >
-        <SendPage :showQrcodeReader="showQrcodeReader" />
+        <SendPage :showQrcodeReader="showQrcodeReader" @send="sheet.send = false" />
       </Sheet>
     </v-row>
     <br />

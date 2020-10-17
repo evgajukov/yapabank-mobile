@@ -131,23 +131,29 @@ export default {
     },
     async send() {
       try {
-      console.log("Отправка монет!!!");
+        console.log("Отправка монет!!!");
 
-      const seed = localStorage.seed;
-      if (seed == null) {
-        console.log("seed is null");
-        return;
-      }
-      
-      const signer = new Signer();
-      signer.setProvider(new ProviderSeed(seed));
-      
-      const [broadcastedTransfer] = await signer
-        .transfer({ amount: this.amount, recipient: this.address, assetId: this.asset.id })
-        .broadcast();
+        const seed = localStorage.seed;
+        if (seed == null) {
+          console.log("seed is null");
+          return;
+        }
+
+        const signer = new Signer();
+        signer.setProvider(new ProviderSeed(seed));
+
+        const [broadcastedTransfer] = await signer
+          .transfer({
+            amount: this.amount,
+            recipient: this.address,
+            assetId: this.asset.id,
+          })
+          .broadcast();
         console.log(broadcastedTransfer);
         console.log("Монеты успешно отправлены");
         // TODO: нужно обновить список транзакций
+
+        this.$emit("send");
       } catch (error) {
         console.error(error);
       }
