@@ -35,7 +35,6 @@
         </v-list-item-content>
         <v-list-item-action>
           <Sheet
-            :show="sheet.edit"
             color="grey lighten-1"
             :onlyIcon="true"
             btnIcon="mdi-pencil"
@@ -51,7 +50,6 @@
         </v-list-item-content>
         <v-list-item-action>
           <Sheet
-            :show="sheet.edit"
             color="grey lighten-1"
             :onlyIcon="true"
             btnIcon="mdi-pencil"
@@ -95,9 +93,6 @@ export default {
   data() {
     return {
       addressName: null,
-      sheet: {
-        edit: false,
-      },
     };
   },
   computed: {

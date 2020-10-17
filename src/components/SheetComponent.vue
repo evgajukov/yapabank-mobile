@@ -15,7 +15,6 @@
 export default {
   name: "SheetComponent",
   props: {
-    show: Boolean,
     color: String,
     btnText: String,
     btnIcon: String,
@@ -25,9 +24,6 @@ export default {
     return {
       visible: false,
     };
-  },
-  created() {
-    this.visible = this.show;
   },
   methods: {
     open() {

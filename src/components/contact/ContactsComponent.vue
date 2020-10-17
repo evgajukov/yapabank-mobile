@@ -8,7 +8,6 @@
       </v-list-item-content>
       <v-list-item-action>
         <Sheet
-          :show="sheet.edit"
           color="grey lighten-1"
           :onlyIcon="true"
           btnIcon="mdi-pencil"
@@ -29,13 +28,6 @@ export default {
   props: {
     header: String,
     list: Array,
-  },
-  data() {
-    return {
-      sheet: {
-        edit: false,
-      },
-    };
   },
   methods: {
     saveContact() {
