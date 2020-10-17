@@ -42,7 +42,7 @@
             :onlyIcon="true"
             btnIcon="mdi-pencil"
           >
-            <ContactEditPage :address="getAddress(tx)" @save="sheet.edit = false" />
+            <ContactEditPage :address="getAddress(tx)" @save="contactSave" />
           </Sheet>
         </v-list-item-action>
       </v-list-item>
@@ -60,7 +60,7 @@
             :onlyIcon="true"
             btnIcon="mdi-pencil"
           >
-            <ContactEditPage :address="getAddress(tx)" @save="sheet.edit = false" />
+            <ContactEditPage :address="getAddress(tx)" @save="contactSave" />
           </Sheet>
         </v-list-item-action>
       </v-list-item>
@@ -130,6 +130,10 @@ export default {
       if (tx.type == 3) return tx.sender;
       if (tx.type == 4)
         return tx.sender == this.wallet.address ? tx.recipient : tx.sender;
+    },
+    contactSave() {
+      this.sheet.edit = false;
+      this.addressName = this.getContactName(this.tx);
     },
   },
   filters: {
