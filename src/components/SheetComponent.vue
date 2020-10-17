@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-sheet v-model="visible" persistent>
+  <v-bottom-sheet :value="visibleSheet" persistent>
     <template v-slot:activator="{ on, attrs }">
       <v-btn v-if="!onlyIcon" :color="color" class="ma-2 white--text" dark v-bind="attrs" v-on="on" @click="open">{{btnText}}</v-btn>
       <v-btn v-if="onlyIcon" icon v-bind="attrs" v-on="on" @click="open"><v-icon :color="color">{{btnIcon}}</v-icon></v-btn>
@@ -15,6 +15,7 @@
 export default {
   name: "SheetComponent",
   props: {
+    show: Boolean,
     color: String,
     btnText: String,
     btnIcon: String,
@@ -22,11 +23,17 @@ export default {
   },
   data() {
     return {
-      visible: false,
+      visible: this.show,
     };
+  },
+  computed: {
+    visibleSheet() {
+      return this.show && this.visible;
+    }
   },
   methods: {
     open() {
+      this.visible = true;
       this.$emit("open");
     },
     close() {

@@ -27,6 +27,9 @@
       </v-list-item-content>
       <v-list-item-action>
         <Sheet
+          :show="sheet.info"
+          @open="sheet.info = true"
+          @close="sheet.info = false"
           color="grey lighten-1"
           :onlyIcon="true"
           btnIcon="mdi-information"
@@ -51,6 +54,13 @@ export default {
     header: String,
     list: Array,
     length: Number,
+  },
+  data() {
+    return {
+      sheet: {
+        info: false,
+      },
+    };
   },
   computed: {
     getList() {

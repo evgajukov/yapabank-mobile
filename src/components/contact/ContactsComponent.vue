@@ -8,11 +8,14 @@
       </v-list-item-content>
       <v-list-item-action>
         <Sheet
+          :show="sheet.edit"
+          @open="sheet.edit = true"
+          @close="sheet.edit = false"
           color="grey lighten-1"
           :onlyIcon="true"
           btnIcon="mdi-pencil"
         >
-          <ContactEditPage :address="contact.address" @save="saveContact" />
+          <ContactEditPage :address="contact.address" @save="sheet.edit = false" />
         </Sheet>
       </v-list-item-action>
     </v-list-item>
@@ -29,10 +32,12 @@ export default {
     header: String,
     list: Array,
   },
-  methods: {
-    saveContact() {
-      console.log("Edit contact");
-    },
+  data() {
+    return {
+      sheet: {
+        edit: false,
+      },
+    };
   },
   components: {
     Sheet,

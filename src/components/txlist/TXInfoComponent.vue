@@ -35,11 +35,14 @@
         </v-list-item-content>
         <v-list-item-action>
           <Sheet
+            :show="sheet.edit"
+            @open="sheet.edit = true"
+            @close="sheet.edit = false"
             color="grey lighten-1"
             :onlyIcon="true"
             btnIcon="mdi-pencil"
           >
-            <ContactEditPage :address="getAddress(tx)" @save="saveContact" />
+            <ContactEditPage :address="getAddress(tx)" @save="sheet.edit = false" />
           </Sheet>
         </v-list-item-action>
       </v-list-item>
@@ -50,11 +53,14 @@
         </v-list-item-content>
         <v-list-item-action>
           <Sheet
+            :show="sheet.edit"
+            @open="sheet.edit = true"
+            @close="sheet.edit = false"
             color="grey lighten-1"
             :onlyIcon="true"
             btnIcon="mdi-pencil"
           >
-            <ContactEditPage :address="getAddress(tx)" @save="saveContact" />
+            <ContactEditPage :address="getAddress(tx)" @save="sheet.edit = false" />
           </Sheet>
         </v-list-item-action>
       </v-list-item>
@@ -93,6 +99,9 @@ export default {
   data() {
     return {
       addressName: null,
+      sheet: {
+        edit: false,
+      },
     };
   },
   computed: {
@@ -121,9 +130,6 @@ export default {
       if (tx.type == 3) return tx.sender;
       if (tx.type == 4)
         return tx.sender == this.wallet.address ? tx.recipient : tx.sender;
-    },
-    saveContact() {
-      console.log("Save address to contacts");
     },
   },
   filters: {
