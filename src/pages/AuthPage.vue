@@ -16,22 +16,30 @@
         />
         <br />
         <v-btn color="info" large @click="signin">Войти</v-btn>
+        <br />
+        &mdash; или &mdash;
+        <br />
+        <v-btn color="success" large @click="create">Создать</v-btn>
+        <br /><br />
+        <p v-if="newAddress" class="red--text text-caption">ВНИМАНИЕ! Не забудьте сохранить SEED в надежном месте. При его потере доступ к кошельку и всему его содержимому будет потерян.</p>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { libs } from "@waves/waves-transactions";
+
 export default {
   name: "AuthPage",
   data() {
     return {
       seed: null,
+      newAddress: false,
     };
   },
   created() {
     console.log("created auth");
-    // if (localStorage.seed != null) this.$router.push("/");
   },
   updated() {
     console.log("updated auth");
@@ -44,6 +52,10 @@ export default {
       } catch (error) {
         console.error(error.message);
       }
+    },
+    create() {
+      this.seed = libs.crypto.randomSeed(15);
+      this.newAddress = true;
     },
   },
 };

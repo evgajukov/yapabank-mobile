@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <Balance :value="balance" :symbol="symbol" />
+    <Balance :value="balance" :symbol="symbol()" />
     <br />
     <v-row justify="center">
       <v-col cols="12">
@@ -79,17 +79,12 @@ export default {
       if (asset == null) return 0;
       return asset.amount;
     },
-    symbol() {
-      const asset = this.asset();
-      if (asset == null) return "UNKNOWN";
-      return asset.assetName;
-    },
     qrcodeValue() {
       let value = { address: this.wallet.address, amount: null };
       return JSON.stringify(value);
     },
     ...mapState(["wallet", "txlist"]),
-    ...mapGetters(["asset"]),
+    ...mapGetters(["asset", "symbol"]),
   },
   methods: {
     copy() {

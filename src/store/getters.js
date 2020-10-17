@@ -12,4 +12,7 @@ export default {
     }
     return null;
   },
+  symbol: state => () => {
+    return state.asset.name;
+  },
 };
