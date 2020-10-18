@@ -17,6 +17,7 @@ store.state.appName = config.appName;
 store.state.type = config.type;
 if (config.type == "single") {
   store.state.asset = config.asset;
+  store.state.admins = config.admin;
 }
 
 moment.locale("ru");
