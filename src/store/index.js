@@ -7,14 +7,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    appName: "Acropol",
-    asset: {
-      id: "AERXACWDKTKBcvHLZch3UozqogjbcPktrfdoSuDxh3Lu",
-      name: "ACRA",
-    },
-    wallet: {
-      address: null,
-    },
+    appName: null,
+    type: null,
+    asset: null,
+    wallet: { address: null },
     txlist: [],
     contacts: [],
   },

@@ -9,7 +9,15 @@ import VueQrcodeReader from "vue-qrcode-reader";
 import VueMask from "v-mask";
 
 import moment from "moment";
-import './registerServiceWorker'
+import "./registerServiceWorker";
+
+import config from "../config.json";
+
+store.state.appName = config.appName;
+store.state.type = config.type;
+if (config.type == "single") {
+  store.state.asset = config.asset;
+}
 
 moment.locale("ru");
 
