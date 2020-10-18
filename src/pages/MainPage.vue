@@ -5,7 +5,7 @@
     <v-row justify="center">
       <v-col cols="12">
         <v-text-field :value="wallet.address" readonly>
-          <v-icon slot="append" v-clipboard="wallet.address" @click="copy">mdi-content-copy</v-icon>
+          <v-icon slot="append" v-clipboard="() => wallet.address" @click="copy">mdi-content-copy</v-icon>
         </v-text-field>
       </v-col>
     </v-row>
