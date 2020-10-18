@@ -5,7 +5,6 @@ import { ProviderSeed } from "@waves/provider-seed";
 
 export default {
   async loadWallet({ commit }, seed) {
-    console.log(seed);
     const signer = new Signer();
     signer.setProvider(new ProviderSeed(seed));
     const wallet = await signer.login();

@@ -50,7 +50,7 @@
 import Signer from "@waves/signer";
 import { ProviderSeed } from "@waves/provider-seed";
 
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 import Toast from "@/components/ToastComponent";
 
@@ -151,13 +151,16 @@ export default {
           .broadcast();
         console.log(broadcastedTransfer);
         console.log("Монеты успешно отправлены");
-        // TODO: нужно обновить список транзакций
+
+        await this.loadWallet(localStorage.seed);
+        await this.loadTxList();
 
         this.$emit("send");
       } catch (error) {
         console.error(error);
       }
     },
+    ...mapActions(["loadWallet", "loadTxList"]),
   },
   components: {
     Toast,

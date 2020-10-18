@@ -19,10 +19,11 @@ export default {
   data() {
     return {
       seed: null,
+      timerId: null,
     };
   },
   computed: {
-    ...mapState(["asset", "wallet"]),
+    ...mapState(["asset", "wallet", "reloadTimer"]),
   },
   async created() {
     console.log("created app");
@@ -37,6 +38,12 @@ export default {
   async updated() {
     console.log("updated app");
     await this.load();
+  },
+  destroyed() {
+    if (this.timerId != null) {
+      clearInterval(this.timerId);
+      this.timerId = null;
+    }
   },
   methods: {
     async load() {
@@ -71,6 +78,14 @@ export default {
           if (contacts != null) {
             this.setContacts(contacts);
           }
+        }
+
+        if (this.timerId == null) {
+          this.timerId = setInterval(async () => {
+            console.log("reload...");
+            await this.loadWallet(localStorage.seed);
+            await this.loadTxList();
+          }, this.reloadTimer);
         }
 
         console.log("finish load");

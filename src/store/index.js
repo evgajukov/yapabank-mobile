@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     appName: null,
     type: null,
+    reloadTimer: 10000,
     asset: null,
     wallet: { address: null },
     txlist: [],
