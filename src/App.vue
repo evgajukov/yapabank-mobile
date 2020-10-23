@@ -26,7 +26,6 @@ export default {
     ...mapState(["asset", "wallet", "reloadTimer"]),
   },
   async created() {
-    console.log("created app");
     this.seed = localStorage.seed;
     if (this.$route.name != "auth" && this.seed == null) {
       console.log("redirect to auth");
@@ -36,7 +35,6 @@ export default {
     }
   },
   async updated() {
-    console.log("updated app");
     await this.load();
   },
   destroyed() {
@@ -47,9 +45,7 @@ export default {
   },
   methods: {
     async load() {
-      console.log("start load");
       if (this.$route.name != "auth" && this.wallet.address == null) {
-        console.log("load...");
         this.seed = localStorage.seed;
         if (this.seed == null) {
           console.log("seed is null");
@@ -57,20 +53,17 @@ export default {
         }
 
         try {
-          console.log("login and get balance...");
           await this.loadWallet(this.seed);
         } catch (error) {
           console.error(error.message);
         }
 
         try {
-          console.log("get txlist...");
           await this.loadTxList();
         } catch (error) {
           console.error(error.message);
         }
 
-        console.log("get contacts...");
         let data = localStorage[this.wallet.address];
         if (data != null) {
           data = JSON.parse(data);
@@ -82,13 +75,10 @@ export default {
 
         if (this.timerId == null) {
           this.timerId = setInterval(async () => {
-            console.log("reload...");
             await this.loadWallet(localStorage.seed);
             await this.loadTxList();
           }, this.reloadTimer);
         }
-
-        console.log("finish load");
       }
     },
     ...mapMutations(["setWallet", "setTxList", "setContacts"]),
