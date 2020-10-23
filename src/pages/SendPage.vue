@@ -109,17 +109,26 @@ export default {
       console.log(decodedString);
       if (decodedString != null) {
         try {
-          this.value = JSON.parse(decodedString);
-          console.log(this.value);
+          if (this.isJsonString(decodedString)) {
+            this.value = JSON.parse(decodedString);
+            console.log(this.value);
 
-          this.amount =
-            this.value.amount != null
-              ? Math.abs(parseFloat(this.value.amount))
-              : null;
-          this.address = this.value.address != null ? this.value.address : null;
+            this.amount =
+              this.value.amount != null
+                ? Math.abs(parseFloat(this.value.amount))
+                : null;
+            this.address =
+              this.value.address != null ? this.value.address : null;
+          } else {
+            this.value = decodedString;
+            console.log(this.value);
+
+            if (this.value != null && this.value.trim().length != 0) {
+              this.amount = null;
+              this.address = this.value.trim();
+            }
+          }
           this.showQrcodeReaderByBtn = this.address == null;
-          console.log(this.address);
-          console.log(this.showQrcodeReaderByBtn);
         } catch (error) {
           console.error(error.message);
         }
@@ -147,6 +156,8 @@ export default {
             amount: this.amount,
             recipient: this.address,
             assetId: this.asset.id,
+            feeAssetId: this.asset.id,
+            fee: 1,
           })
           .broadcast();
         console.log(broadcastedTransfer);
@@ -159,6 +170,14 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    isJsonString(value) {
+      try {
+        JSON.parse(value);
+      } catch (error) {
+        return false;
+      }
+      return true;
     },
     ...mapActions(["loadWallet", "loadTxList"]),
   },
