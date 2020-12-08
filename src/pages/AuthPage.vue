@@ -24,11 +24,14 @@
         <p v-if="newAddress" class="red--text text-caption">ВНИМАНИЕ! Не забудьте сохранить SEED в надежном месте. При его потере доступ к кошельку и всему его содержимому будет потерян.</p>
       </v-col>
     </v-row>
+    <Toast v-if="toast.show" :show="toast.show" :text="toast.text" :color="toast.color" @close="toastClose" />
   </v-container>
 </template>
 
 <script>
 import { libs } from "@waves/waves-transactions";
+import { seedCheck, seedNormalize } from "@/lib/seed.js";
+import Toast from "@/components/ToastComponent";
 
 export default {
   name: "AuthPage",
@@ -36,6 +39,11 @@ export default {
     return {
       seed: null,
       newAddress: false,
+      toast: {
+        show: false,
+        text: null,
+        color: null
+      },
     };
   },
   created() {
@@ -47,6 +55,14 @@ export default {
   methods: {
     async signin() {
       try {
+        this.seed = seedNormalize(this.seed);
+        if (!seedCheck(this.seed)) {
+          this.toast.color = "error";
+          this.toast.text = "Проверьте корректность указанной фразы SEED";
+          this.toast.show = true;
+          return;
+        }
+        console.log(this.seed);
         localStorage.seed = this.seed;
         this.$router.push("/");
       } catch (error) {
@@ -57,6 +73,12 @@ export default {
       this.seed = libs.crypto.randomSeed(15);
       this.newAddress = true;
     },
+    toastClose() {
+      this.toast.show = false;
+    },
+  },
+  components: {
+    Toast,
   },
 };
 </script>
